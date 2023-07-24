@@ -1,4 +1,5 @@
 import puppeteer from 'puppeteer';
+import fs from 'fs/promises';
 
 /**
  *  data within dataPharm
@@ -40,6 +41,10 @@ async function openWebPage() {
 
   // \x1b[33m TXT \x1b[0m - color
   console.log(`\x1b[33m Hay ${dataPharm.length} farmacias en España \x1b[0m`);
+  await browser.close();
+
+  await fs.writeFile('pharmacy.json', JSON.stringify(dataPharm));
+  console.log(`\x1b[33m Datos guardados en pharmacy.json \x1b[0m`);
 }
 
 async function pagination(page) {
